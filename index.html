@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Class Notes - 2 Weeks of Learning</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --accent: #38bdf8;
+            --accent-warm: #f59e0b;
+            --accent-green: #34d399;
+            --accent-pink: #f472b6;
+            --accent-purple: #a78bfa;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(164, 139, 250, 0.08) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .period {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(56, 189, 248, 0.1);
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+        }
+
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .card .example {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(56, 189, 248, 0.05);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        /* Color themes for labels */
+        .label-expression { background: rgba(56, 189, 248, 0.15); color: var(--accent); }
+        .label-vocab { background: rgba(164, 139, 250, 0.15); color: var(--accent-purple); }
+        .label-grammar { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
+        .label-travel { background: rgba(245, 158, 11, 0.15); color: var(--accent-warm); }
+        .label-work { background: rgba(244, 114, 182, 0.15); color: var(--accent-pink); }
+
+        /* Full-width story card */
+        .story-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-warm), var(--accent-pink), var(--accent-purple));
+        }
+
+        .story-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-warm), var(--accent-purple));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 0.5rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-warm);
+            border: 2px solid var(--bg);
+        }
+
+        .timeline-item:nth-child(2)::before { background: var(--accent); }
+        .timeline-item:nth-child(3)::before { background: var(--accent-green); }
+        .timeline-item:nth-child(4)::before { background: var(--accent-pink); }
+        .timeline-item:nth-child(5)::before { background: var(--accent-purple); }
+
+        .timeline-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .timeline-item strong {
+            color: var(--text);
+        }
+
+        /* Comparison table */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .comparison-col {
+            padding: 1.25rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .comparison-col.option-a {
+            background: rgba(52, 211, 153, 0.08);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+
+        .comparison-col.option-b {
+            background: rgba(244, 114, 182, 0.08);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+        }
+
+        .comparison-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .comparison-col ul {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .comparison-col ul li {
+            padding: 0.3rem 0;
+        }
+
+        .comparison-col .verdict {
+            margin-top: 0.75rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .option-a .verdict { color: var(--accent-green); }
+        .option-b .verdict { color: var(--accent-pink); }
+
+        /* Highlight callout */
+        .callout {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(164, 139, 250, 0.08));
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .callout p {
+            font-size: 1.15rem;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .callout .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Tense table */
+        .tense-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tense-cell {
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .tense-header {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .tense-present {
+            background: rgba(52, 211, 153, 0.08);
+            color: var(--accent-green);
+        }
+
+        .tense-past {
+            background: rgba(164, 139, 250, 0.08);
+            color: var(--accent-purple);
+        }
+
+        /* Stats bar */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.25rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card-grid { grid-template-columns: 1fr; }
+            .comparison { grid-template-columns: 1fr; }
+            .tense-grid { grid-template-columns: 1fr; }
+            .stats { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <header class="hero">
+        <h1>English Class Notes</h1>
+        <p class="subtitle">Two Weeks of Real-World English</p>
+        <span class="period">March 2026</span>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Categories</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Expressions</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">2</div>
+            <div class="stat-label">Weeks</div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Section 1: Key Expressions -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background: rgba(56, 189, 248, 0.15);">
+                    💬
+                </div>
+                <h2 class="section-title">Key Expressions</h2>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <span class="card-label label-expression">Idiom</span>
+                    <h3>Take a Rain Check</h3>
+                    <p>A polite way to decline an invitation or offer <strong>for now</strong>, while suggesting you'd like to do it at a later time.</p>
+                    <div class="example">
+                        "I can't attend class next week. Let's do a rain check."<br>
+                        "I will take a rain check."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-expression">Useful Phrase</span>
+                    <h3>I'm debating between ___ and ___</h3>
+                    <p>Use this when you're trying to choose between two options. A natural way to express indecision.</p>
+                    <div class="example">
+                        "I'm debating between the train and the airplane."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-expression">Time Expression</span>
+                    <h3>On the 3rd Wednesday of every month</h3>
+                    <p>How to express recurring dates precisely in English. Ordinal number + day + frequency.</p>
+                    <div class="example">
+                        "Our team meeting is on the 3rd Wednesday of every month."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-expression">Numbers</span>
+                    <h3>1/3 &mdash; "A third of the price"</h3>
+                    <p>Expressing fractions in everyday conversation. Use ordinal numbers: a third, a quarter, a fifth...</p>
+                    <div class="example">
+                        "It's a third of the price compared to flying."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Vocabulary -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background: rgba(164, 139, 250, 0.15);">
+                    📖
+                </div>
+                <h2 class="section-title">Vocabulary</h2>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <span class="card-label label-vocab">Word</span>
+                    <h3>Pollen</h3>
+                    <p>Fine powder produced by flowers. A common cause of allergies in spring.</p>
+                    <div class="example">"The pollen count is really high today."</div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-vocab">Word</span>
+                    <h3>Hives & Rashes</h3>
+                    <p><strong>Hives</strong> = raised, itchy bumps on skin (allergic reaction).<br>
+                    <strong>Rash</strong> = red, irritated area on skin.</p>
+                    <div class="example">"I broke out in hives after eating shellfish."</div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-vocab">Word</span>
+                    <h3>Bluefin (Fish)</h3>
+                    <p>Bluefin tuna &mdash; a premium fish prized for sushi and sashimi worldwide.</p>
+                    <div class="example">"Bluefin tuna is one of the most expensive fish."</div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-vocab">Phrase</span>
+                    <h3>Jet Lagged</h3>
+                    <p>Feeling tired and disoriented after traveling across time zones.</p>
+                    <div class="example">"I'm still jet lagged from the flight to Barcelona."</div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-vocab">Abbreviation</span>
+                    <h3>___ Dept.</h3>
+                    <p><strong>Dept.</strong> = Department. Short form used in business contexts.</p>
+                    <div class="example">"Networking Dept." / "Sales Dept." / "HR Dept."</div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-vocab">Word</span>
+                    <h3>Baggage Fee</h3>
+                    <p>An extra charge airlines add for checked luggage.</p>
+                    <div class="example">"Is there a baggage fee for this flight?"</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Grammar -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background: rgba(52, 211, 153, 0.15);">
+                    📝
+                </div>
+                <h2 class="section-title">Grammar Focus</h2>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <span class="card-label label-grammar">Tenses</span>
+                    <h3>Present vs. Past Tense</h3>
+                    <p>Key verb pairs practiced this week:</p>
+                    <div class="tense-grid">
+                        <div class="tense-cell tense-header">Verb</div>
+                        <div class="tense-cell tense-header">Present</div>
+                        <div class="tense-cell tense-header">Past</div>
+                        <div class="tense-cell" style="color: var(--text);">be</div>
+                        <div class="tense-cell tense-present">there is</div>
+                        <div class="tense-cell tense-past">there was</div>
+                        <div class="tense-cell" style="color: var(--text);">buy</div>
+                        <div class="tense-cell tense-present">buy</div>
+                        <div class="tense-cell tense-past">bought</div>
+                        <div class="tense-cell" style="color: var(--text);">wake</div>
+                        <div class="tense-cell tense-present">wake up</div>
+                        <div class="tense-cell tense-past">woke up</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-grammar">Conditional</span>
+                    <h3>Hypothetical Past (3rd Conditional)</h3>
+                    <p>Talking about situations that <strong>didn't happen</strong> in the past using <em>"If + had + past participle, would have..."</em></p>
+                    <div class="example">
+                        "If I had arrived one day late, I would have been stuck at the airport and it would have been a bad situation."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-grammar">Structure</span>
+                    <h3>"Should have" + Past Participle</h3>
+                    <p>Expressing that something was expected but didn't happen as planned.</p>
+                    <div class="example">
+                        "The train ride should have taken 3 hours, but it took 5 hours."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-grammar">Preposition</span>
+                    <h3>"For" with Time Periods</h3>
+                    <p>Use <strong>"for"</strong> to indicate the time period a report or task covers.</p>
+                    <div class="example">
+                        "I had to write a summary report for last year."<br>
+                        "I had to write a summary report for 2025."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Real-Life Context -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background: rgba(244, 114, 182, 0.15);">
+                    🏢
+                </div>
+                <h2 class="section-title">Real-Life Context</h2>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <span class="card-label label-work">Office Life</span>
+                    <h3>HYBE Building & Tourists</h3>
+                    <p>Practice describing daily situations around your workplace naturally.</p>
+                    <div class="example">
+                        "Many tourists visit the HYBE building next to my office. They cause traffic jams."
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-label label-work">Work</span>
+                    <h3>Year-End Summary Report</h3>
+                    <p>Talking about work responsibilities in the past tense.</p>
+                    <div class="example">
+                        "I had to write a summary report for 2025."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Travel Story -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background: rgba(245, 158, 11, 0.15);">
+                    ✈️
+                </div>
+                <h2 class="section-title">Travel Story: Getting to Madrid</h2>
+            </div>
+
+            <div class="story-card">
+                <h3>Train vs. Airplane &mdash; The Madrid Decision</h3>
+
+                <div class="comparison">
+                    <div class="comparison-col option-a">
+                        <h4>🚆 Train</h4>
+                        <ul>
+                            <li>More flexible schedule</li>
+                            <li>Control your own time</li>
+                            <li>No long waiting at terminal</li>
+                            <li>Expected: 3 hours</li>
+                        </ul>
+                        <div class="verdict">✓ Chosen option</div>
+                    </div>
+                    <div class="comparison-col option-b">
+                        <h4>✈️ Airplane</h4>
+                        <ul>
+                            <li>At least 7 hours waiting</li>
+                            <li>Baggage fees</li>
+                            <li>Less time flexibility</li>
+                            <li>3-4x more expensive than Korea</li>
+                        </ul>
+                        <div class="verdict">✗ Not chosen</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h3>What Actually Happened</h3>
+                    <div class="timeline" style="margin-top: 1.25rem;">
+                        <div class="timeline-item">
+                            <p><strong>The Decision:</strong> "I had two options to Madrid &mdash; one option is by train and the other is by airplane."</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p><strong>The Reasoning:</strong> "I can control my time more freely if I use the train."</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p><strong>The Choice:</strong> "I decided to take the train rather than the airplane because it was more flexible."</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p><strong>The Twist:</strong> "However, the train did not come on time and took longer than expected."</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p><strong>The Result:</strong> "The train ride <em>should have taken</em> 3 hours, but it took <strong>5 hours</strong>." 😅</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    <p>
+                        <span class="highlight">Key takeaway:</span> Spain's ticket prices are <strong>3 to 4 times more expensive</strong> than Korea's &mdash; and the trains don't always run on time!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>English Class Notes &mdash; March 2026</p>
+    </footer>
+
+</body>
+</html>
