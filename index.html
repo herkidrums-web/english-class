@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Class Notes - 3 Weeks of Learning</title>
+    <title>English Class Notes</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
 
         :root {
             --bg: #0f172a;
@@ -31,979 +31,1260 @@
             overflow-x: hidden;
         }
 
-        /* Hero */
-        .hero {
-            min-height: 50vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        /* ===== HOME VIEW ===== */
+        #home { display: block; }
+        #viewer { display: none; }
+
+        .home-header {
             text-align: center;
-            padding: 4rem 2rem;
-            position: relative;
-            overflow: hidden;
+            padding: 4rem 2rem 2rem;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 50%, rgba(164, 139, 250, 0.08) 0%, transparent 50%);
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .hero h1 {
+        .home-header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             background: linear-gradient(135deg, var(--accent), var(--accent-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
-            z-index: 1;
         }
 
-        .hero .subtitle {
-            font-size: 1.2rem;
+        .home-header p {
             color: var(--text-muted);
-            margin-top: 1rem;
-            position: relative;
-            z-index: 1;
+            font-size: 1.1rem;
+            margin-top: 0.75rem;
         }
 
-        .hero .period {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            padding: 0.5rem 1.5rem;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Layout */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem 6rem;
-        }
-
-        /* Section */
-        .section {
-            margin-bottom: 4rem;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .section-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .section-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        /* Cards */
-        .card-grid {
+        /* Week Grid */
+        .week-grid {
+            max-width: 900px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem 4rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 1.25rem;
         }
 
-        .card {
+        .week-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 1.75rem;
+            padding: 2rem;
+            cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
-        .card:hover {
+        .week-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-purple));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .week-card:hover {
             border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(56, 189, 248, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(56, 189, 248, 0.12);
         }
 
-        .card-label {
-            font-size: 0.7rem;
-            font-weight: 600;
+        .week-card:hover::before { opacity: 1; }
+
+        .week-card .week-num {
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
+            color: var(--accent);
             margin-bottom: 0.75rem;
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
         }
 
-        .card h3 {
+        .week-card .week-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .week-card .week-title {
             font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
             line-height: 1.4;
         }
 
-        .card p {
+        .week-card .week-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .week-card .topic {
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            background: rgba(56, 189, 248, 0.08);
             color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.8;
+            border: 1px solid rgba(56, 189, 248, 0.1);
         }
 
-        .card .example {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(56, 189, 248, 0.05);
-            border-left: 3px solid var(--accent);
-            border-radius: 0 8px 8px 0;
-            font-style: italic;
-            color: var(--accent);
-            font-size: 0.95rem;
-        }
-
-        /* Color themes for labels */
-        .label-expression { background: rgba(56, 189, 248, 0.15); color: var(--accent); }
-        .label-vocab { background: rgba(164, 139, 250, 0.15); color: var(--accent-purple); }
-        .label-grammar { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
-        .label-travel { background: rgba(245, 158, 11, 0.15); color: var(--accent-warm); }
-        .label-work { background: rgba(244, 114, 182, 0.15); color: var(--accent-pink); }
-
-        /* Full-width story card */
-        .story-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .story-card::before {
-            content: '';
+        .week-card .slide-count {
             position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg);
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+        }
+
+        /* ===== SLIDE VIEWER ===== */
+        .viewer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-warm), var(--accent-pink), var(--accent-purple));
+            background: var(--bg);
+            z-index: 100;
         }
 
-        .story-card h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--accent-warm), var(--accent-purple));
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 1.5rem;
-            padding-left: 1rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.35rem;
-            top: 0.5rem;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--accent-warm);
-            border: 2px solid var(--bg);
-        }
-
-        .timeline-item:nth-child(2)::before { background: var(--accent); }
-        .timeline-item:nth-child(3)::before { background: var(--accent-green); }
-        .timeline-item:nth-child(4)::before { background: var(--accent-pink); }
-        .timeline-item:nth-child(5)::before { background: var(--accent-purple); }
-
-        .timeline-item p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.8;
-        }
-
-        .timeline-item strong {
-            color: var(--text);
-        }
-
-        /* Comparison table */
-        .comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .comparison-col {
-            padding: 1.25rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .comparison-col.option-a {
-            background: rgba(52, 211, 153, 0.08);
-            border: 1px solid rgba(52, 211, 153, 0.2);
-        }
-
-        .comparison-col.option-b {
-            background: rgba(244, 114, 182, 0.08);
-            border: 1px solid rgba(244, 114, 182, 0.2);
-        }
-
-        .comparison-col h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .comparison-col ul {
-            list-style: none;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .comparison-col ul li {
-            padding: 0.3rem 0;
-        }
-
-        .comparison-col .verdict {
-            margin-top: 0.75rem;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-
-        .option-a .verdict { color: var(--accent-green); }
-        .option-b .verdict { color: var(--accent-pink); }
-
-        /* Highlight callout */
-        .callout {
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(164, 139, 250, 0.08));
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-top: 1.5rem;
-            text-align: center;
-        }
-
-        .callout p {
-            font-size: 1.15rem;
-            color: var(--text);
-            line-height: 1.8;
-        }
-
-        .callout .highlight {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* Tense table */
-        .tense-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+        .back-btn {
+            display: flex;
+            align-items: center;
             gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .tense-cell {
-            padding: 0.75rem;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .tense-header {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .tense-present {
-            background: rgba(52, 211, 153, 0.08);
-            color: var(--accent-green);
-        }
-
-        .tense-past {
-            background: rgba(164, 139, 250, 0.08);
-            color: var(--accent-purple);
-        }
-
-        /* Stats bar */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 0.25rem;
-        }
-
-        /* Week Navigation */
-        .week-nav {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .week-btn {
-            padding: 0.6rem 1.5rem;
+            padding: 0.5rem 1rem;
             border: 1px solid var(--border);
             border-radius: 999px;
             background: transparent;
             color: var(--text-muted);
             font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
 
-        .week-btn:hover {
+        .back-btn:hover {
             border-color: var(--accent);
             color: var(--text);
         }
 
-        .week-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: var(--bg);
+        .viewer-title {
+            font-size: 0.9rem;
             font-weight: 600;
         }
 
-        .week-content {
-            display: none;
-        }
-
-        .week-content.active {
-            display: block;
-        }
-
-        /* Week 3 specific */
-        .definition-box {
-            margin-top: 1rem;
-            padding: 1.25rem;
-            background: rgba(164, 139, 250, 0.05);
-            border: 1px solid rgba(164, 139, 250, 0.15);
-            border-radius: 12px;
-            font-size: 0.9rem;
+        .viewer-page {
+            font-size: 0.85rem;
             color: var(--text-muted);
-            line-height: 1.8;
         }
 
-        .definition-box strong {
-            color: var(--accent-purple);
+        /* Slideshow */
+        .slideshow {
+            max-width: 720px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
         }
 
-        .synonyms {
+        .slide {
+            display: none;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
+        }
+
+        .slide.active {
+            display: flex;
+            animation: fadeIn 0.35s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+            padding-bottom: 3rem;
+        }
+
+        .nav-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.1); }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .dots {
+            display: flex;
+            gap: 0.4rem;
+            align-items: center;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .keyboard-hint {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            opacity: 0.4;
+            padding-bottom: 2rem;
+        }
+
+        /* ===== SLIDE CONTENT STYLES ===== */
+
+        /* Cover */
+        .s-cover {
+            background: linear-gradient(135deg, #0f172a, #1e293b, #0f172a);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .s-cover .badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 0.4rem 1.2rem;
+            border-radius: 999px;
+            margin-bottom: 2rem;
+        }
+
+        .s-cover h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.15;
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .s-cover .tagline {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .s-cover .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 0.75rem;
+            justify-content: center;
         }
 
-        .synonym-tag {
-            padding: 0.3rem 0.75rem;
+        .s-cover .tags span {
+            padding: 0.4rem 1rem;
             border-radius: 999px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* Idiom */
+        .s-idiom {
+            background: linear-gradient(160deg, #1a1a2e, #16213e);
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        .s-idiom .label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 1.5rem;
+        }
+
+        .s-idiom h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .def-box {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 1.25rem;
+        }
+
+        .def-box.warm { background: rgba(245, 158, 11, 0.06); border-left: 4px solid var(--accent-warm); }
+        .def-box.blue { background: rgba(56, 189, 248, 0.06); border-left: 4px solid var(--accent); }
+        .def-box.purple { background: rgba(164, 139, 250, 0.06); border-left: 4px solid var(--accent-purple); }
+        .def-box.green { background: rgba(52, 211, 153, 0.06); border-left: 4px solid var(--accent-green); }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .pill {
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .pill.warm { background: rgba(245, 158, 11, 0.1); color: var(--accent-warm); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .pill.blue { background: rgba(56, 189, 248, 0.12); color: var(--accent); }
+        .pill.purple { background: rgba(164, 139, 250, 0.12); color: var(--accent-purple); }
+        .pill.green { background: rgba(52, 211, 153, 0.12); color: var(--accent-green); }
+        .pill.pink { background: rgba(244, 114, 182, 0.12); color: var(--accent-pink); }
+
+        /* Examples */
+        .s-examples {
+            background: linear-gradient(160deg, #1a1a2e, #16213e);
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        .s-examples .label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .s-examples h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.75rem;
+        }
+
+        .ex-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .ex-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            padding: 0.9rem 1.1rem;
+            background: rgba(56, 189, 248, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.08);
+        }
+
+        .ex-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg);
+            font-weight: 700;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+
+        .ex-text {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .ex-text strong { color: var(--accent); }
+
+        /* Correction */
+        .s-correction {
+            background: linear-gradient(160deg, #1a1a2e, #16213e);
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        .s-correction .label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .s-correction h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.75rem;
+        }
+
+        .corr-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.4rem;
+        }
+
+        .corr-label.wrong { color: var(--accent-pink); }
+        .corr-label.right { color: var(--accent-green); }
+
+        .corr-box {
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .corr-box.wrong {
+            background: rgba(244, 114, 182, 0.06);
+            border: 1px solid rgba(244, 114, 182, 0.15);
+            color: var(--accent-pink);
+            text-decoration: line-through;
+            text-decoration-color: rgba(244, 114, 182, 0.4);
+        }
+
+        .corr-box.right {
+            background: rgba(52, 211, 153, 0.06);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            color: var(--accent-green);
             font-weight: 500;
         }
 
-        .synonym-tag.green {
-            background: rgba(52, 211, 153, 0.12);
-            color: var(--accent-green);
+        .fix-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
         }
 
-        .synonym-tag.blue {
-            background: rgba(56, 189, 248, 0.12);
-            color: var(--accent);
+        .fix-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.88rem;
+            color: var(--text-muted);
         }
 
-        .synonym-tag.purple {
-            background: rgba(164, 139, 250, 0.12);
+        .fix-old { color: var(--accent-pink); text-decoration: line-through; opacity: 0.7; }
+        .fix-new { color: var(--accent-green); font-weight: 600; }
+        .fix-arrow { color: var(--accent-green); font-weight: 700; }
+
+        /* Vocab */
+        .s-vocab {
+            background: linear-gradient(160deg, #1a1a2e, #16213e);
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        .s-vocab .label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
             color: var(--accent-purple);
+            margin-bottom: 1.5rem;
         }
 
-        .sentence-correction {
+        .s-vocab h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 1.25rem;
+        }
+
+        .ex-sentence {
+            padding: 0.85rem 1.2rem;
+            background: rgba(164, 139, 250, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(164, 139, 250, 0.1);
+            font-style: italic;
+            color: var(--accent-purple);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin-bottom: 0.6rem;
+        }
+
+        /* Compare */
+        .compare-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .compare-box {
+            padding: 1.25rem;
+            border-radius: 12px;
+        }
+
+        .compare-box.a {
+            background: rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        .compare-box.b {
+            background: rgba(164, 139, 250, 0.06);
+            border: 1px solid rgba(164, 139, 250, 0.15);
+        }
+
+        .compare-box h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .compare-box.a h3 { color: var(--accent); }
+        .compare-box.b h3 { color: var(--accent-purple); }
+
+        .compare-box p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .compare-box .quote {
+            margin-top: 0.6rem;
+            font-style: italic;
+            font-size: 0.92rem;
+        }
+
+        .compare-box.a .quote { color: var(--accent); }
+        .compare-box.b .quote { color: var(--accent-purple); }
+
+        /* Recap */
+        .s-recap {
+            background: linear-gradient(135deg, #0f172a, #1e293b, #0f172a);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .s-recap h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .recap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .recap-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.7rem 1.1rem;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .recap-item .check { color: var(--accent-green); font-size: 1rem; }
+        .recap-item strong { color: var(--text); }
+
+        .recap-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Tense grid (Week 1-2) */
+        .tense-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.4rem;
             margin-top: 1rem;
         }
 
-        .sentence-correction .before {
-            padding: 0.75rem 1rem;
-            background: rgba(244, 114, 182, 0.08);
-            border-left: 3px solid var(--accent-pink);
-            border-radius: 0 8px 8px 0;
-            color: var(--accent-pink);
-            font-size: 0.9rem;
-            text-decoration: line-through;
-            opacity: 0.7;
+        .tense-cell {
+            padding: 0.65rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.85rem;
         }
 
-        .sentence-correction .after {
-            padding: 0.75rem 1rem;
-            margin-top: 0.5rem;
-            background: rgba(52, 211, 153, 0.08);
-            border-left: 3px solid var(--accent-green);
-            border-radius: 0 8px 8px 0;
-            color: var(--accent-green);
-            font-size: 0.9rem;
-            font-weight: 500;
+        .tense-header { background: rgba(56, 189, 248, 0.1); color: var(--accent); font-weight: 600; }
+        .tense-present { background: rgba(52, 211, 153, 0.08); color: var(--accent-green); }
+        .tense-past { background: rgba(164, 139, 250, 0.08); color: var(--accent-purple); }
+
+        /* Comparison (Week 1-2 travel) */
+        .vs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
         }
+
+        .vs-col {
+            padding: 1.1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .vs-col.a { background: rgba(52, 211, 153, 0.06); border: 1px solid rgba(52, 211, 153, 0.15); }
+        .vs-col.b { background: rgba(244, 114, 182, 0.06); border: 1px solid rgba(244, 114, 182, 0.15); }
+
+        .vs-col h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .vs-col ul { list-style: none; font-size: 0.82rem; color: var(--text-muted); }
+        .vs-col ul li { padding: 0.2rem 0; }
+        .vs-col .verdict { margin-top: 0.5rem; font-weight: 600; font-size: 0.8rem; }
+        .vs-col.a .verdict { color: var(--accent-green); }
+        .vs-col.b .verdict { color: var(--accent-pink); }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-top: 1rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-warm), var(--accent-purple));
+        }
+
+        .tl-item {
+            position: relative;
+            margin-bottom: 1.25rem;
+            padding-left: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -2.05rem;
+            top: 0.45rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .tl-item strong { color: var(--text); }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 2rem;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border-top: 1px solid var(--border);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .card-grid { grid-template-columns: 1fr; }
-            .comparison { grid-template-columns: 1fr; }
+            .week-grid { grid-template-columns: 1fr; }
+            .vs-grid { grid-template-columns: 1fr; }
             .tense-grid { grid-template-columns: 1fr; }
-            .stats { gap: 1.5rem; }
+            .slide { aspect-ratio: 3 / 4; }
+            .s-cover, .s-idiom, .s-examples, .s-correction, .s-vocab, .s-recap { padding: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero -->
-    <header class="hero">
+<!-- ==================== HOME ==================== -->
+<div id="home">
+    <header class="home-header">
         <h1>English Class Notes</h1>
-        <p class="subtitle">Three Weeks of Real-World English</p>
-        <span class="period">March 2026</span>
+        <p>Weekly lessons, visualized. Click a week to start.</p>
     </header>
 
-    <!-- Stats -->
-    <div class="stats">
-        <div class="stat">
-            <div class="stat-number">5</div>
-            <div class="stat-label">Categories</div>
+    <div class="week-grid">
+
+        <!-- Week 3 -->
+        <div class="week-card" onclick="openWeek('week3')">
+            <span class="slide-count">9 slides</span>
+            <div class="week-num">Week 3</div>
+            <div class="week-date">March 27, 2026</div>
+            <div class="week-title">Up in the Air &amp; Tech-Savvy</div>
+            <div class="week-topics">
+                <span class="topic">Up in the Air</span>
+                <span class="topic">Short-staffed</span>
+                <span class="topic">Tech-Savvy</span>
+                <span class="topic">Tell vs. Remind</span>
+            </div>
         </div>
-        <div class="stat">
-            <div class="stat-number">20+</div>
-            <div class="stat-label">Expressions</div>
+
+        <!-- Week 1-2 -->
+        <div class="week-card" onclick="openWeek('week12')">
+            <span class="slide-count">10 slides</span>
+            <div class="week-num">Week 1-2</div>
+            <div class="week-date">March 13-20, 2026</div>
+            <div class="week-title">Rain Check &amp; Madrid Trip</div>
+            <div class="week-topics">
+                <span class="topic">Rain Check</span>
+                <span class="topic">Pollen / Hives</span>
+                <span class="topic">Tenses</span>
+                <span class="topic">3rd Conditional</span>
+                <span class="topic">Train vs. Plane</span>
+            </div>
         </div>
-        <div class="stat">
-            <div class="stat-number">3</div>
-            <div class="stat-label">Weeks</div>
+
+    </div>
+</div>
+
+<!-- ==================== SLIDE VIEWER ==================== -->
+<div id="viewer">
+    <div class="viewer-header">
+        <button class="back-btn" onclick="goHome()">&larr; All Weeks</button>
+        <span class="viewer-title" id="viewerTitle"></span>
+        <span class="viewer-page" id="viewerPage"></span>
+    </div>
+
+    <div class="slideshow" id="slideshow"></div>
+
+    <div class="nav">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">&larr;</button>
+        <div class="dots" id="dots"></div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">&rarr;</button>
+    </div>
+    <div class="keyboard-hint">Arrow keys or swipe to navigate</div>
+</div>
+
+<!-- ==================== SLIDE DATA ==================== -->
+
+<!-- WEEK 3 SLIDES (hidden, cloned into viewer) -->
+<template id="week3" data-title="Week 3 &mdash; Up in the Air & Tech-Savvy">
+
+    <!-- 1: Cover -->
+    <div class="slide s-cover">
+        <div class="badge">Week 3</div>
+        <h2>English Class Notes</h2>
+        <p class="tagline">Today's Idioms, Vocabulary &amp; Corrections</p>
+        <div class="tags">
+            <span>Up in the Air</span>
+            <span>Tech-Savvy</span>
+            <span>Short-staffed</span>
+            <span>Tell vs. Remind</span>
         </div>
     </div>
 
-    <div class="container">
-
-        <!-- Week Navigation -->
-        <div class="week-nav">
-            <button class="week-btn active" onclick="showWeek('week12')">Week 1-2</button>
-            <button class="week-btn" onclick="showWeek('week3')">Week 3 <span style="font-size:0.7rem; opacity:0.7;">NEW</span></button>
+    <!-- 2: Up in the Air - Definition -->
+    <div class="slide s-idiom">
+        <div class="label">Idiom of the Week</div>
+        <h2>Up in the Air</h2>
+        <div class="def-box warm">
+            This expression is used if you say that a decision or a situation has <strong>not yet been completely settled, set, planned, or confirmed</strong>.
         </div>
-
-        <!-- WEEK 1-2 CONTENT -->
-        <div id="week12" class="week-content active">
-
-        <!-- Section 1: Key Expressions -->
-        <section class="section">
-            <div class="section-header">
-                <div class="section-icon" style="background: rgba(56, 189, 248, 0.15);">
-                    💬
-                </div>
-                <h2 class="section-title">Key Expressions</h2>
-            </div>
-
-            <div class="card-grid">
-                <div class="card">
-                    <span class="card-label label-expression">Idiom</span>
-                    <h3>Take a Rain Check</h3>
-                    <p>A polite way to decline an invitation or offer <strong>for now</strong>, while suggesting you'd like to do it at a later time.</p>
-                    <div class="example">
-                        "I can't attend class next week. Let's do a rain check."<br>
-                        "I will take a rain check."
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-expression">Useful Phrase</span>
-                    <h3>I'm debating between ___ and ___</h3>
-                    <p>Use this when you're trying to choose between two options. A natural way to express indecision.</p>
-                    <div class="example">
-                        "I'm debating between the train and the airplane."
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-expression">Time Expression</span>
-                    <h3>On the 3rd Wednesday of every month</h3>
-                    <p>How to express recurring dates precisely in English. Ordinal number + day + frequency.</p>
-                    <div class="example">
-                        "Our team meeting is on the 3rd Wednesday of every month."
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-expression">Numbers</span>
-                    <h3>1/3 &mdash; "A third of the price"</h3>
-                    <p>Expressing fractions in everyday conversation. Use ordinal numbers: a third, a quarter, a fifth...</p>
-                    <div class="example">
-                        "It's a third of the price compared to flying."
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 2: Vocabulary -->
-        <section class="section">
-            <div class="section-header">
-                <div class="section-icon" style="background: rgba(164, 139, 250, 0.15);">
-                    📖
-                </div>
-                <h2 class="section-title">Vocabulary</h2>
-            </div>
-
-            <div class="card-grid">
-                <div class="card">
-                    <span class="card-label label-vocab">Word</span>
-                    <h3>Pollen</h3>
-                    <p>Fine powder produced by flowers. A common cause of allergies in spring.</p>
-                    <div class="example">"The pollen count is really high today."</div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-vocab">Word</span>
-                    <h3>Hives & Rashes</h3>
-                    <p><strong>Hives</strong> = raised, itchy bumps on skin (allergic reaction).<br>
-                    <strong>Rash</strong> = red, irritated area on skin.</p>
-                    <div class="example">"I broke out in hives after eating shellfish."</div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-vocab">Word</span>
-                    <h3>Bluefin (Fish)</h3>
-                    <p>Bluefin tuna &mdash; a premium fish prized for sushi and sashimi worldwide.</p>
-                    <div class="example">"Bluefin tuna is one of the most expensive fish."</div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-vocab">Phrase</span>
-                    <h3>Jet Lagged</h3>
-                    <p>Feeling tired and disoriented after traveling across time zones.</p>
-                    <div class="example">"I'm still jet lagged from the flight to Barcelona."</div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-vocab">Abbreviation</span>
-                    <h3>___ Dept.</h3>
-                    <p><strong>Dept.</strong> = Department. Short form used in business contexts.</p>
-                    <div class="example">"Networking Dept." / "Sales Dept." / "HR Dept."</div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-vocab">Word</span>
-                    <h3>Baggage Fee</h3>
-                    <p>An extra charge airlines add for checked luggage.</p>
-                    <div class="example">"Is there a baggage fee for this flight?"</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 3: Grammar -->
-        <section class="section">
-            <div class="section-header">
-                <div class="section-icon" style="background: rgba(52, 211, 153, 0.15);">
-                    📝
-                </div>
-                <h2 class="section-title">Grammar Focus</h2>
-            </div>
-
-            <div class="card-grid">
-                <div class="card">
-                    <span class="card-label label-grammar">Tenses</span>
-                    <h3>Present vs. Past Tense</h3>
-                    <p>Key verb pairs practiced this week:</p>
-                    <div class="tense-grid">
-                        <div class="tense-cell tense-header">Verb</div>
-                        <div class="tense-cell tense-header">Present</div>
-                        <div class="tense-cell tense-header">Past</div>
-                        <div class="tense-cell" style="color: var(--text);">be</div>
-                        <div class="tense-cell tense-present">there is</div>
-                        <div class="tense-cell tense-past">there was</div>
-                        <div class="tense-cell" style="color: var(--text);">buy</div>
-                        <div class="tense-cell tense-present">buy</div>
-                        <div class="tense-cell tense-past">bought</div>
-                        <div class="tense-cell" style="color: var(--text);">wake</div>
-                        <div class="tense-cell tense-present">wake up</div>
-                        <div class="tense-cell tense-past">woke up</div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-grammar">Conditional</span>
-                    <h3>Hypothetical Past (3rd Conditional)</h3>
-                    <p>Talking about situations that <strong>didn't happen</strong> in the past using <em>"If + had + past participle, would have..."</em></p>
-                    <div class="example">
-                        "If I had arrived one day late, I would have been stuck at the airport and it would have been a bad situation."
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-grammar">Structure</span>
-                    <h3>"Should have" + Past Participle</h3>
-                    <p>Expressing that something was expected but didn't happen as planned.</p>
-                    <div class="example">
-                        "The train ride should have taken 3 hours, but it took 5 hours."
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-grammar">Preposition</span>
-                    <h3>"For" with Time Periods</h3>
-                    <p>Use <strong>"for"</strong> to indicate the time period a report or task covers.</p>
-                    <div class="example">
-                        "I had to write a summary report for last year."<br>
-                        "I had to write a summary report for 2025."
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 4: Real-Life Context -->
-        <section class="section">
-            <div class="section-header">
-                <div class="section-icon" style="background: rgba(244, 114, 182, 0.15);">
-                    🏢
-                </div>
-                <h2 class="section-title">Real-Life Context</h2>
-            </div>
-
-            <div class="card-grid">
-                <div class="card">
-                    <span class="card-label label-work">Office Life</span>
-                    <h3>HYBE Building & Tourists</h3>
-                    <p>Practice describing daily situations around your workplace naturally.</p>
-                    <div class="example">
-                        "Many tourists visit the HYBE building next to my office. They cause traffic jams."
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-label label-work">Work</span>
-                    <h3>Year-End Summary Report</h3>
-                    <p>Talking about work responsibilities in the past tense.</p>
-                    <div class="example">
-                        "I had to write a summary report for 2025."
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 5: Travel Story -->
-        <section class="section">
-            <div class="section-header">
-                <div class="section-icon" style="background: rgba(245, 158, 11, 0.15);">
-                    ✈️
-                </div>
-                <h2 class="section-title">Travel Story: Getting to Madrid</h2>
-            </div>
-
-            <div class="story-card">
-                <h3>Train vs. Airplane &mdash; The Madrid Decision</h3>
-
-                <div class="comparison">
-                    <div class="comparison-col option-a">
-                        <h4>🚆 Train</h4>
-                        <ul>
-                            <li>More flexible schedule</li>
-                            <li>Control your own time</li>
-                            <li>No long waiting at terminal</li>
-                            <li>Expected: 3 hours</li>
-                        </ul>
-                        <div class="verdict">✓ Chosen option</div>
-                    </div>
-                    <div class="comparison-col option-b">
-                        <h4>✈️ Airplane</h4>
-                        <ul>
-                            <li>At least 7 hours waiting</li>
-                            <li>Baggage fees</li>
-                            <li>Less time flexibility</li>
-                            <li>3-4x more expensive than Korea</li>
-                        </ul>
-                        <div class="verdict">✗ Not chosen</div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 2rem;">
-                    <h3>What Actually Happened</h3>
-                    <div class="timeline" style="margin-top: 1.25rem;">
-                        <div class="timeline-item">
-                            <p><strong>The Decision:</strong> "I had two options to Madrid &mdash; one option is by train and the other is by airplane."</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p><strong>The Reasoning:</strong> "I can control my time more freely if I use the train."</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p><strong>The Choice:</strong> "I decided to take the train rather than the airplane because it was more flexible."</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p><strong>The Twist:</strong> "However, the train did not come on time and took longer than expected."</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p><strong>The Result:</strong> "The train ride <em>should have taken</em> 3 hours, but it took <strong>5 hours</strong>." 😅</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="callout">
-                    <p>
-                        <span class="highlight">Key takeaway:</span> Spain's ticket prices are <strong>3 to 4 times more expensive</strong> than Korea's &mdash; and the trains don't always run on time!
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        </div><!-- end week12 -->
-
-        <!-- WEEK 3 CONTENT -->
-        <div id="week3" class="week-content">
-
-            <!-- Section: Key Expressions -->
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-icon" style="background: rgba(56, 189, 248, 0.15);">
-                        💬
-                    </div>
-                    <h2 class="section-title">Key Expressions</h2>
-                </div>
-
-                <div class="card-grid">
-                    <div class="card" style="grid-column: 1 / -1;">
-                        <span class="card-label label-expression">Idiom</span>
-                        <h3>Up in the Air</h3>
-                        <div class="definition-box">
-                            <strong>Up in the air:</strong> This expression is used if you say that a decision or a situation has <strong>not yet been completely settled, set, planned, or confirmed</strong>.
-                        </div>
-                        <div class="synonyms" style="margin-top: 1rem;">
-                            <span class="synonym-tag blue">unresolved</span>
-                            <span class="synonym-tag purple">uncertain</span>
-                            <span class="synonym-tag green">undecided</span>
-                            <span class="synonym-tag blue">unfinished</span>
-                            <span class="synonym-tag purple">unsettled</span>
-                            <span class="synonym-tag green">pending</span>
-                        </div>
-                        <p style="margin-top: 1.25rem; font-weight: 600; color: var(--accent); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Example Sentences</p>
-                        <div style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                            <div class="example" style="margin-top: 0;">1. The proposal to work with the new client <strong>is up in the air</strong> as there are various issues regarding budgeting.</div>
-                            <div class="example" style="margin-top: 0;">2. The meeting date with the client <strong>is up in the air</strong>.</div>
-                            <div class="example" style="margin-top: 0;">3. My promotion to be senior manager this year <strong>is up in the air</strong>.</div>
-                            <div class="example" style="margin-top: 0;">4. My weekend plans <strong>are up in the air</strong>.</div>
-                            <div class="example" style="margin-top: 0;">5. My vacation plans <strong>are up in the air</strong> because my manager did not approve my dates.</div>
-                        </div>
-                        <div class="sentence-correction" style="margin-top: 1.25rem;">
-                            <p style="font-weight: 600; color: var(--text); font-size: 0.85rem; margin-bottom: 0.5rem;">My Sentence Practice</p>
-                            <div class="before">"I have to make some project. The project to work with my cowork, but this project up in the air."</div>
-                            <div class="after">"I have to work on a new project with my coworker, but it is up in the air."</div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <span class="card-label label-expression">Useful Phrase</span>
-                        <h3>Short-staffed</h3>
-                        <p>When a team or company doesn't have enough employees to handle the workload.</p>
-                        <div class="example">
-                            "We are short-staffed and may not meet the client's deadline."
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <span class="card-label label-expression">Request Phrases</span>
-                        <h3>Tell me vs. Remind me</h3>
-                        <p><strong>Tell me / Inform me</strong> = share new information.<br>
-                        <strong>Remind me</strong> = help me remember something I already know.</p>
-                        <div class="example">
-                            "I want you to tell me what I need to do." (new info)<br>
-                            "I want you to remind me what I need to do." (forgotten info)
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section: Vocabulary -->
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-icon" style="background: rgba(164, 139, 250, 0.15);">
-                        📖
-                    </div>
-                    <h2 class="section-title">Vocabulary Deep Dive</h2>
-                </div>
-
-                <div class="card-grid">
-                    <div class="card">
-                        <span class="card-label label-vocab">Key Word</span>
-                        <h3>Tech-Savvy</h3>
-                        <p>Someone who has practical knowledge and good judgment with technology.</p>
-                        <div class="definition-box">
-                            <strong>Savvy</strong> refers to having practical knowledge, shrewdness, and good judgment in specific areas. It describes someone who is well-informed, perceptive, and quick-witted &mdash; often used to describe someone "in the know."
-                        </div>
-                        <div class="example" style="margin-top: 0.75rem;">
-                            "I am a programmer, so I am very tech-savvy."<br>
-                            "I am not a programmer, but I am tech-savvy."
-                        </div>
-                        <div class="synonyms" style="margin-top: 0.75rem;">
-                            <span class="synonym-tag blue">tech-savvy</span>
-                            <span class="synonym-tag purple">media-savvy</span>
-                            <span class="synonym-tag green">business-savvy</span>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <span class="card-label label-vocab">Synonyms</span>
-                        <h3>Fun &amp; Enjoyment</h3>
-                        <p>Different ways to say something is enjoyable:</p>
-                        <div class="synonyms">
-                            <span class="synonym-tag green">fun</span>
-                            <span class="synonym-tag blue">interesting</span>
-                            <span class="synonym-tag purple">entertaining</span>
-                            <span class="synonym-tag green">enjoyable</span>
-                        </div>
-                        <div class="example" style="margin-top: 0.75rem;">
-                            "It is very fun and interesting to do coding with Claude Code."
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <span class="card-label label-vocab">Word Pair</span>
-                        <h3>Coder vs. Developer</h3>
-                        <p><strong>Coder</strong> = someone who writes code (more casual).<br>
-                        <strong>Developer</strong> = someone who builds software (more professional).<br>
-                        <strong>Programmer</strong> = general term for both.</p>
-                        <div class="example">
-                            All three are commonly used and interchangeable in everyday conversation.
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section: Grammar Correction -->
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-icon" style="background: rgba(52, 211, 153, 0.15);">
-                        📝
-                    </div>
-                    <h2 class="section-title">Grammar Corrections</h2>
-                </div>
-
-                <div class="story-card">
-                    <h3>Sentence Building Practice</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Learning to express work situations naturally in English.</p>
-
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <p style="margin-bottom: 0.5rem;"><strong>Original:</strong></p>
-                            <p style="color: var(--accent-pink); text-decoration: line-through; opacity: 0.7;">"I have to make some project. The project to work with my cowork, but this project up in the air."</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p style="margin-bottom: 0.5rem;"><strong>Corrected:</strong></p>
-                            <p style="color: var(--accent-green); font-weight: 500;">"I have to work on a new project with my coworker, but it is up in the air."</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p style="margin-bottom: 0.5rem;"><strong>Key fixes:</strong></p>
-                            <p>
-                                "make a project" &rarr; "<strong>work on</strong> a project"<br>
-                                "cowork" &rarr; "<strong>coworker</strong>" (person) vs. "cowork" (not standard)<br>
-                                "this project up in the air" &rarr; "it <strong>is</strong> up in the air" (needs verb "is")
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="callout" style="margin-top: 2rem;">
-                        <p>
-                            <span class="highlight">Why is it up in the air?</span><br>
-                            "The boss has <strong>not decided</strong> whether to do the project or not.<br>
-                            We are <strong>short-staffed</strong> and may not meet the client's deadline."
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-        </div><!-- end week3 -->
-
+        <p style="font-size:0.82rem; color:var(--text-muted); font-weight:600; margin-bottom:0.6rem;">Similar words:</p>
+        <div class="pill-row">
+            <span class="pill warm">unresolved</span>
+            <span class="pill warm">uncertain</span>
+            <span class="pill warm">undecided</span>
+            <span class="pill warm">unfinished</span>
+            <span class="pill warm">unsettled</span>
+            <span class="pill warm">pending</span>
+        </div>
     </div>
 
-    <script>
-        function showWeek(weekId) {
-            document.querySelectorAll('.week-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.week-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(weekId).classList.add('active');
-            event.target.classList.add('active');
-            window.scrollTo({ top: document.querySelector('.week-nav').offsetTop - 20, behavior: 'smooth' });
+    <!-- 3: Up in the Air - Examples -->
+    <div class="slide s-examples">
+        <div class="label">Up in the Air &mdash; Examples</div>
+        <h2>When to use it</h2>
+        <div class="ex-list">
+            <div class="ex-item">
+                <div class="ex-num">1</div>
+                <div class="ex-text">The proposal to work with the new client <strong>is up in the air</strong> as there are various issues regarding budgeting.</div>
+            </div>
+            <div class="ex-item">
+                <div class="ex-num">2</div>
+                <div class="ex-text">The meeting date with the client <strong>is up in the air</strong>.</div>
+            </div>
+            <div class="ex-item">
+                <div class="ex-num">3</div>
+                <div class="ex-text">My promotion to be senior manager this year <strong>is up in the air</strong>.</div>
+            </div>
+            <div class="ex-item">
+                <div class="ex-num">4</div>
+                <div class="ex-text">My weekend plans <strong>are up in the air</strong>.</div>
+            </div>
+            <div class="ex-item">
+                <div class="ex-num">5</div>
+                <div class="ex-text">My vacation plans <strong>are up in the air</strong> because my manager did not approve my dates.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4: Sentence Correction -->
+    <div class="slide s-correction">
+        <div class="label">Sentence Practice</div>
+        <h2>Using "Up in the Air"</h2>
+        <div>
+            <div class="corr-label wrong">Before</div>
+            <div class="corr-box wrong">"I have to make some project. The project to work with my cowork, but this project up in the air."</div>
+        </div>
+        <div>
+            <div class="corr-label right">After</div>
+            <div class="corr-box right">"I have to work on a new project with my coworker, but it is up in the air."</div>
+        </div>
+        <div class="fix-list">
+            <div class="fix-row"><span class="fix-old">make a project</span><span class="fix-arrow">&rarr;</span><span class="fix-new">work on a project</span></div>
+            <div class="fix-row"><span class="fix-old">cowork</span><span class="fix-arrow">&rarr;</span><span class="fix-new">coworker</span></div>
+            <div class="fix-row"><span class="fix-old">this project up in the air</span><span class="fix-arrow">&rarr;</span><span class="fix-new">it is up in the air</span></div>
+        </div>
+    </div>
+
+    <!-- 5: Context -->
+    <div class="slide s-idiom">
+        <div class="label">Context</div>
+        <h2>Why is it<br>"up in the air"?</h2>
+        <div class="def-box warm">The boss has <strong>not decided</strong> whether to do the project or not.</div>
+        <div class="def-box warm">We are <strong>short-staffed</strong> and may not meet the client's deadline.</div>
+        <div style="margin-top:1.25rem;">
+            <p style="font-size:0.82rem; color:var(--text-muted); font-weight:600; margin-bottom:0.4rem;">Short-staffed:</p>
+            <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.7;">When a team or company doesn't have enough employees to handle the workload.</p>
+        </div>
+    </div>
+
+    <!-- 6: Tech-Savvy -->
+    <div class="slide s-vocab">
+        <div class="label">Vocabulary</div>
+        <h2>Tech-Savvy</h2>
+        <div class="def-box purple">
+            <strong style="color:var(--accent-purple);">Savvy</strong> refers to having practical knowledge, shrewdness, and good judgment in specific areas. It describes someone who is well-informed, perceptive, and quick-witted &mdash; often used to describe someone <strong style="color:var(--accent-purple);">"in the know"</strong>.
+        </div>
+        <div class="ex-sentence">"I am a programmer, so I am very tech-savvy."</div>
+        <div class="ex-sentence">"I am not a programmer, but I am tech-savvy."</div>
+        <div class="pill-row" style="margin-top:0.75rem;">
+            <span class="pill blue">tech-savvy</span>
+            <span class="pill purple">media-savvy</span>
+            <span class="pill green">business-savvy</span>
+        </div>
+    </div>
+
+    <!-- 7: Fun & Coding -->
+    <div class="slide s-vocab">
+        <div class="label">Vocabulary</div>
+        <h2>Fun &amp; Coding</h2>
+        <div class="def-box purple">Different ways to say something is enjoyable:</div>
+        <div class="pill-row" style="margin-bottom:1.25rem;">
+            <span class="pill green">fun</span>
+            <span class="pill blue">interesting</span>
+            <span class="pill purple">entertaining</span>
+            <span class="pill pink">enjoyable</span>
+        </div>
+        <div class="ex-sentence">"It is very fun and interesting to do coding with Claude Code."</div>
+        <div style="margin-top:1.25rem;">
+            <p style="font-size:0.82rem; color:var(--text-muted); font-weight:600; margin-bottom:0.6rem;">What do you call someone who codes?</p>
+            <div class="pill-row">
+                <span class="pill blue">Coder <span style="opacity:0.6; font-weight:400;">(casual)</span></span>
+                <span class="pill purple">Developer <span style="opacity:0.6; font-weight:400;">(professional)</span></span>
+                <span class="pill green">Programmer <span style="opacity:0.6; font-weight:400;">(general)</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8: Tell vs Remind -->
+    <div class="slide s-vocab">
+        <div class="label">Useful Phrases</div>
+        <h2>Tell me vs.<br>Remind me</h2>
+        <div class="compare-row">
+            <div class="compare-box a">
+                <h3>Tell me / Inform me</h3>
+                <p>Share <strong style="color:var(--text);">new</strong> information I don't know yet.</p>
+                <p class="quote">"I want you to tell me what I need to do."</p>
+            </div>
+            <div class="compare-box b">
+                <h3>Remind me</h3>
+                <p>Help me <strong style="color:var(--text);">remember</strong> something I already know but forgot.</p>
+                <p class="quote">"I want you to remind me what I need to do."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9: Recap -->
+    <div class="slide s-recap">
+        <h2>Week 3 Recap</h2>
+        <div class="recap-list">
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>Up in the Air</strong> &mdash; undecided, not yet confirmed</span></div>
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>Short-staffed</strong> &mdash; not enough people</span></div>
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>Tech-savvy</strong> &mdash; knowledgeable about technology</span></div>
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>Tell me</strong> (new info) vs. <strong>Remind me</strong> (forgotten)</span></div>
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>work on</strong> a project (not "make" a project)</span></div>
+        </div>
+        <p class="recap-date">March 27, 2026</p>
+    </div>
+
+</template>
+
+<!-- WEEK 1-2 SLIDES -->
+<template id="week12" data-title="Week 1-2 &mdash; Rain Check & Madrid Trip">
+
+    <!-- 1: Cover -->
+    <div class="slide s-cover">
+        <div class="badge">Week 1-2</div>
+        <h2>English Class Notes</h2>
+        <p class="tagline">Real-World English &mdash; Expressions, Grammar &amp; Travel</p>
+        <div class="tags">
+            <span>Rain Check</span>
+            <span>Pollen / Hives</span>
+            <span>Tenses</span>
+            <span>3rd Conditional</span>
+            <span>Madrid Trip</span>
+        </div>
+    </div>
+
+    <!-- 2: Rain Check -->
+    <div class="slide s-idiom">
+        <div class="label">Idiom</div>
+        <h2>Take a Rain Check</h2>
+        <div class="def-box warm">
+            A polite way to decline an invitation or offer <strong>for now</strong>, while suggesting you'd like to do it at a later time.
+        </div>
+        <div class="ex-sentence" style="border-color: rgba(245,158,11,0.2); color: var(--accent-warm); background: rgba(245,158,11,0.04);">
+            "I can't attend class next week. Let's do a rain check."
+        </div>
+        <div class="ex-sentence" style="border-color: rgba(245,158,11,0.2); color: var(--accent-warm); background: rgba(245,158,11,0.04);">
+            "I will take a rain check."
+        </div>
+    </div>
+
+    <!-- 3: Expressions -->
+    <div class="slide s-examples">
+        <div class="label">Key Expressions</div>
+        <h2>Useful Phrases</h2>
+        <div class="ex-list">
+            <div class="ex-item">
+                <div class="ex-num">1</div>
+                <div class="ex-text"><strong>I'm debating between ___ and ___</strong><br>A natural way to express indecision between two choices.</div>
+            </div>
+            <div class="ex-item">
+                <div class="ex-num">2</div>
+                <div class="ex-text"><strong>On the 3rd Wednesday of every month</strong><br>Ordinal number + day + frequency for recurring dates.</div>
+            </div>
+            <div class="ex-item">
+                <div class="ex-num">3</div>
+                <div class="ex-text"><strong>A third of the price</strong> (1/3)<br>Fractions: a third, a quarter, a fifth...</div>
+            </div>
+            <div class="ex-item">
+                <div class="ex-num">4</div>
+                <div class="ex-text"><strong>___ Dept.</strong> (Department)<br>"Networking Dept." / "Sales Dept." / "HR Dept."</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4: Vocabulary -->
+    <div class="slide s-vocab">
+        <div class="label">Vocabulary</div>
+        <h2>New Words</h2>
+        <div class="ex-list" style="gap: 0.6rem;">
+            <div class="ex-item" style="background: rgba(164,139,250,0.04); border-color: rgba(164,139,250,0.08);">
+                <div class="ex-num" style="background: var(--accent-purple);">P</div>
+                <div class="ex-text"><strong style="color:var(--accent-purple);">Pollen</strong> &mdash; Fine powder from flowers. Causes spring allergies.</div>
+            </div>
+            <div class="ex-item" style="background: rgba(244,114,182,0.04); border-color: rgba(244,114,182,0.08);">
+                <div class="ex-num" style="background: var(--accent-pink);">H</div>
+                <div class="ex-text"><strong style="color:var(--accent-pink);">Hives &amp; Rashes</strong> &mdash; Skin reactions. Hives = raised bumps, Rash = red area.</div>
+            </div>
+            <div class="ex-item" style="background: rgba(56,189,248,0.04); border-color: rgba(56,189,248,0.08);">
+                <div class="ex-num" style="background: var(--accent);">B</div>
+                <div class="ex-text"><strong>Bluefin</strong> &mdash; Premium tuna prized for sushi worldwide.</div>
+            </div>
+            <div class="ex-item" style="background: rgba(245,158,11,0.04); border-color: rgba(245,158,11,0.08);">
+                <div class="ex-num" style="background: var(--accent-warm);">J</div>
+                <div class="ex-text"><strong style="color:var(--accent-warm);">Jet Lagged</strong> &mdash; Tired after crossing time zones.</div>
+            </div>
+            <div class="ex-item" style="background: rgba(52,211,153,0.04); border-color: rgba(52,211,153,0.08);">
+                <div class="ex-num" style="background: var(--accent-green);">B</div>
+                <div class="ex-text"><strong style="color:var(--accent-green);">Baggage Fee</strong> &mdash; Extra charge for checked luggage.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5: Grammar - Tenses -->
+    <div class="slide s-idiom">
+        <div class="label" style="color: var(--accent-green);">Grammar</div>
+        <h2>Present vs. Past</h2>
+        <div class="tense-grid">
+            <div class="tense-cell tense-header">Verb</div>
+            <div class="tense-cell tense-header">Present</div>
+            <div class="tense-cell tense-header">Past</div>
+            <div class="tense-cell" style="color: var(--text);">be</div>
+            <div class="tense-cell tense-present">there is</div>
+            <div class="tense-cell tense-past">there was</div>
+            <div class="tense-cell" style="color: var(--text);">buy</div>
+            <div class="tense-cell tense-present">buy</div>
+            <div class="tense-cell tense-past">bought</div>
+            <div class="tense-cell" style="color: var(--text);">wake</div>
+            <div class="tense-cell tense-present">wake up</div>
+            <div class="tense-cell tense-past">woke up</div>
+        </div>
+        <div style="margin-top: 1.5rem;">
+            <div class="def-box green">
+                <strong>3rd Conditional</strong> (hypothetical past):<br>
+                "If I <strong>had arrived</strong> one day late, I <strong>would have been</strong> stuck at the airport."
+            </div>
+        </div>
+    </div>
+
+    <!-- 6: Grammar - Should have -->
+    <div class="slide s-idiom">
+        <div class="label" style="color: var(--accent-green);">Grammar</div>
+        <h2>"Should have" +<br>Past Participle</h2>
+        <div class="def-box green">
+            Expressing that something was <strong>expected</strong> but didn't happen as planned.
+        </div>
+        <div class="ex-sentence" style="border-color: rgba(52,211,153,0.2); color: var(--accent-green); background: rgba(52,211,153,0.04);">
+            "The train ride should have taken 3 hours, but it took 5 hours."
+        </div>
+        <div style="margin-top: 1.25rem;">
+            <div class="def-box blue">
+                <strong>"For"</strong> with time periods:<br>
+                "I had to write a summary report <strong>for last year</strong>."<br>
+                "I had to write a summary report <strong>for 2025</strong>."
+            </div>
+        </div>
+    </div>
+
+    <!-- 7: Office Life -->
+    <div class="slide s-vocab">
+        <div class="label" style="color: var(--accent-pink);">Real Life</div>
+        <h2>Around the Office</h2>
+        <div class="def-box purple" style="border-color: var(--accent-pink); background: rgba(244,114,182,0.06);">
+            <strong style="color: var(--accent-pink);">HYBE Building &amp; Tourists</strong><br>
+            "Many tourists visit the HYBE building next to my office. They cause traffic jams."
+        </div>
+        <div style="margin-top: 1rem;">
+            <div class="def-box purple" style="border-color: var(--accent-pink); background: rgba(244,114,182,0.06);">
+                <strong style="color: var(--accent-pink);">Year-End Report</strong><br>
+                "I had to write a summary report for 2025."
+            </div>
+        </div>
+    </div>
+
+    <!-- 8: Travel - Train vs Plane -->
+    <div class="slide s-idiom">
+        <div class="label" style="color: var(--accent-warm);">Travel Story</div>
+        <h2>Madrid:<br>Train vs. Airplane</h2>
+        <div class="vs-grid">
+            <div class="vs-col a">
+                <h3>🚆 Train</h3>
+                <ul>
+                    <li>Flexible schedule</li>
+                    <li>Control your time</li>
+                    <li>Expected: 3 hours</li>
+                </ul>
+                <div class="verdict">&#10003; Chosen</div>
+            </div>
+            <div class="vs-col b">
+                <h3>&#9992; Airplane</h3>
+                <ul>
+                    <li>7+ hours waiting</li>
+                    <li>Baggage fees</li>
+                    <li>3-4x more expensive</li>
+                </ul>
+                <div class="verdict">&#10007; Not chosen</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9: Travel - What happened -->
+    <div class="slide s-idiom">
+        <div class="label" style="color: var(--accent-warm);">What Actually Happened</div>
+        <h2>The Train Ride</h2>
+        <div class="timeline">
+            <div class="tl-item"><strong>Decision:</strong> "I had two options to Madrid &mdash; by train or airplane."</div>
+            <div class="tl-item"><strong>Reasoning:</strong> "I can control my time more freely with the train."</div>
+            <div class="tl-item"><strong>Choice:</strong> "I decided to take the train because it was more flexible."</div>
+            <div class="tl-item"><strong>Twist:</strong> "The train did not come on time and took longer than expected."</div>
+            <div class="tl-item"><strong>Result:</strong> "The train ride <em>should have taken</em> 3 hours, but it took <strong>5 hours</strong>."</div>
+        </div>
+    </div>
+
+    <!-- 10: Recap -->
+    <div class="slide s-recap">
+        <h2>Week 1-2 Recap</h2>
+        <div class="recap-list">
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>Rain Check</strong> &mdash; politely decline now, do it later</span></div>
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>Debating between</strong> &mdash; choosing between options</span></div>
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>Pollen, Hives, Bluefin, Jet Lagged</strong></span></div>
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>3rd Conditional</strong> &mdash; hypothetical past</span></div>
+            <div class="recap-item"><span class="check">&#10003;</span><span><strong>Should have</strong> &mdash; expected but didn't happen</span></div>
+        </div>
+        <p class="recap-date">March 13-20, 2026</p>
+    </div>
+
+</template>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+    let current = 0;
+    let slides = [];
+
+    function openWeek(weekId) {
+        const template = document.getElementById(weekId);
+        const container = document.getElementById('slideshow');
+        container.innerHTML = '';
+
+        // Clone slides from template
+        const clone = template.content.cloneNode(true);
+        container.appendChild(clone);
+
+        slides = container.querySelectorAll('.slide');
+        current = 0;
+
+        // Set title
+        document.getElementById('viewerTitle').innerHTML = template.dataset.title;
+
+        // Build dots
+        const dotsEl = document.getElementById('dots');
+        dotsEl.innerHTML = '';
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            dot.style.cursor = 'pointer';
+            dotsEl.appendChild(dot);
+        });
+
+        // Show first slide
+        slides[0].classList.add('active');
+        updateNav();
+
+        // Switch view
+        document.getElementById('home').style.display = 'none';
+        document.getElementById('viewer').style.display = 'block';
+        window.scrollTo(0, 0);
+
+        // Update URL hash
+        history.pushState(null, '', '#' + weekId);
+    }
+
+    function goHome() {
+        document.getElementById('home').style.display = 'block';
+        document.getElementById('viewer').style.display = 'none';
+        document.getElementById('slideshow').innerHTML = '';
+        window.scrollTo(0, 0);
+        history.pushState(null, '', window.location.pathname);
+    }
+
+    function goToSlide(index) {
+        if (index < 0 || index >= slides.length) return;
+        slides[current].classList.remove('active');
+        document.querySelectorAll('#dots .dot')[current].classList.remove('active');
+        current = index;
+        slides[current].classList.add('active');
+        document.querySelectorAll('#dots .dot')[current].classList.add('active');
+        updateNav();
+    }
+
+    function changeSlide(dir) {
+        goToSlide(current + dir);
+    }
+
+    function updateNav() {
+        document.getElementById('prevBtn').disabled = current === 0;
+        document.getElementById('nextBtn').disabled = current === slides.length - 1;
+        document.getElementById('viewerPage').textContent = `${current + 1} / ${slides.length}`;
+    }
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+        if (document.getElementById('viewer').style.display === 'none') return;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+        if (e.key === 'Escape') goHome();
+    });
+
+    // Swipe
+    let startX = 0;
+    document.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
+    document.addEventListener('touchend', (e) => {
+        if (document.getElementById('viewer').style.display === 'none') return;
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1);
+    });
+
+    // Handle URL hash on load
+    window.addEventListener('load', () => {
+        const hash = window.location.hash.replace('#', '');
+        if (hash && document.getElementById(hash)) {
+            openWeek(hash);
         }
-    </script>
+    });
 
-    <footer>
-        <p>English Class Notes &mdash; March 2026</p>
-    </footer>
+    // Handle browser back button
+    window.addEventListener('popstate', () => {
+        const hash = window.location.hash.replace('#', '');
+        if (hash && document.getElementById(hash)) {
+            openWeek(hash);
+        } else {
+            goHome();
+        }
+    });
+</script>
+
+<footer>
+    <p>English Class Notes &mdash; 2026</p>
+</footer>
 
 </body>
 </html>
