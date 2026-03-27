@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Class Notes - 2 Weeks of Learning</title>
+    <title>English Class Notes - 3 Weeks of Learning</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
 
@@ -398,6 +398,119 @@
             margin-top: 0.25rem;
         }
 
+        /* Week Navigation */
+        .week-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .week-btn {
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .week-btn:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .week-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg);
+            font-weight: 600;
+        }
+
+        .week-content {
+            display: none;
+        }
+
+        .week-content.active {
+            display: block;
+        }
+
+        /* Week 3 specific */
+        .definition-box {
+            margin-top: 1rem;
+            padding: 1.25rem;
+            background: rgba(164, 139, 250, 0.05);
+            border: 1px solid rgba(164, 139, 250, 0.15);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .definition-box strong {
+            color: var(--accent-purple);
+        }
+
+        .synonyms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .synonym-tag {
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .synonym-tag.green {
+            background: rgba(52, 211, 153, 0.12);
+            color: var(--accent-green);
+        }
+
+        .synonym-tag.blue {
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--accent);
+        }
+
+        .synonym-tag.purple {
+            background: rgba(164, 139, 250, 0.12);
+            color: var(--accent-purple);
+        }
+
+        .sentence-correction {
+            margin-top: 1rem;
+        }
+
+        .sentence-correction .before {
+            padding: 0.75rem 1rem;
+            background: rgba(244, 114, 182, 0.08);
+            border-left: 3px solid var(--accent-pink);
+            border-radius: 0 8px 8px 0;
+            color: var(--accent-pink);
+            font-size: 0.9rem;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .sentence-correction .after {
+            padding: 0.75rem 1rem;
+            margin-top: 0.5rem;
+            background: rgba(52, 211, 153, 0.08);
+            border-left: 3px solid var(--accent-green);
+            border-radius: 0 8px 8px 0;
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -421,7 +534,7 @@
     <!-- Hero -->
     <header class="hero">
         <h1>English Class Notes</h1>
-        <p class="subtitle">Two Weeks of Real-World English</p>
+        <p class="subtitle">Three Weeks of Real-World English</p>
         <span class="period">March 2026</span>
     </header>
 
@@ -432,16 +545,25 @@
             <div class="stat-label">Categories</div>
         </div>
         <div class="stat">
-            <div class="stat-number">15+</div>
+            <div class="stat-number">20+</div>
             <div class="stat-label">Expressions</div>
         </div>
         <div class="stat">
-            <div class="stat-number">2</div>
+            <div class="stat-number">3</div>
             <div class="stat-label">Weeks</div>
         </div>
     </div>
 
     <div class="container">
+
+        <!-- Week Navigation -->
+        <div class="week-nav">
+            <button class="week-btn active" onclick="showWeek('week12')">Week 1-2</button>
+            <button class="week-btn" onclick="showWeek('week3')">Week 3 <span style="font-size:0.7rem; opacity:0.7;">NEW</span></button>
+        </div>
+
+        <!-- WEEK 1-2 CONTENT -->
+        <div id="week12" class="week-content active">
 
         <!-- Section 1: Key Expressions -->
         <section class="section">
@@ -701,7 +823,167 @@
             </div>
         </section>
 
+        </div><!-- end week12 -->
+
+        <!-- WEEK 3 CONTENT -->
+        <div id="week3" class="week-content">
+
+            <!-- Section: Key Expressions -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon" style="background: rgba(56, 189, 248, 0.15);">
+                        💬
+                    </div>
+                    <h2 class="section-title">Key Expressions</h2>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <span class="card-label label-expression">Idiom</span>
+                        <h3>Up in the Air</h3>
+                        <p>When something is <strong>uncertain</strong> or <strong>undecided</strong>. The outcome hasn't been determined yet.</p>
+                        <div class="sentence-correction">
+                            <div class="before">"I have to make some project. The project to work with my cowork, but this project up in the air."</div>
+                            <div class="after">"I have to work on a new project with my coworker, but it is up in the air."</div>
+                        </div>
+                        <div class="example" style="margin-top: 0.75rem;">
+                            Why? "The boss has not decided whether to do the project or not. We are short-staffed and may not meet the client's deadline."
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label label-expression">Useful Phrase</span>
+                        <h3>Short-staffed</h3>
+                        <p>When a team or company doesn't have enough employees to handle the workload.</p>
+                        <div class="example">
+                            "We are short-staffed and may not meet the client's deadline."
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label label-expression">Request Phrases</span>
+                        <h3>Tell me vs. Remind me</h3>
+                        <p><strong>Tell me / Inform me</strong> = share new information.<br>
+                        <strong>Remind me</strong> = help me remember something I already know.</p>
+                        <div class="example">
+                            "I want you to tell me what I need to do." (new info)<br>
+                            "I want you to remind me what I need to do." (forgotten info)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Vocabulary -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon" style="background: rgba(164, 139, 250, 0.15);">
+                        📖
+                    </div>
+                    <h2 class="section-title">Vocabulary Deep Dive</h2>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <span class="card-label label-vocab">Key Word</span>
+                        <h3>Tech-Savvy</h3>
+                        <p>Someone who has practical knowledge and good judgment with technology.</p>
+                        <div class="definition-box">
+                            <strong>Savvy</strong> refers to having practical knowledge, shrewdness, and good judgment in specific areas. It describes someone who is well-informed, perceptive, and quick-witted &mdash; often used to describe someone "in the know."
+                        </div>
+                        <div class="example" style="margin-top: 0.75rem;">
+                            "I am a programmer, so I am very tech-savvy."<br>
+                            "I am not a programmer, but I am tech-savvy."
+                        </div>
+                        <div class="synonyms" style="margin-top: 0.75rem;">
+                            <span class="synonym-tag blue">tech-savvy</span>
+                            <span class="synonym-tag purple">media-savvy</span>
+                            <span class="synonym-tag green">business-savvy</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label label-vocab">Synonyms</span>
+                        <h3>Fun &amp; Enjoyment</h3>
+                        <p>Different ways to say something is enjoyable:</p>
+                        <div class="synonyms">
+                            <span class="synonym-tag green">fun</span>
+                            <span class="synonym-tag blue">interesting</span>
+                            <span class="synonym-tag purple">entertaining</span>
+                            <span class="synonym-tag green">enjoyable</span>
+                        </div>
+                        <div class="example" style="margin-top: 0.75rem;">
+                            "It is very fun and interesting to do coding with Claude Code."
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label label-vocab">Word Pair</span>
+                        <h3>Coder vs. Developer</h3>
+                        <p><strong>Coder</strong> = someone who writes code (more casual).<br>
+                        <strong>Developer</strong> = someone who builds software (more professional).<br>
+                        <strong>Programmer</strong> = general term for both.</p>
+                        <div class="example">
+                            All three are commonly used and interchangeable in everyday conversation.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Grammar Correction -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon" style="background: rgba(52, 211, 153, 0.15);">
+                        📝
+                    </div>
+                    <h2 class="section-title">Grammar Corrections</h2>
+                </div>
+
+                <div class="story-card">
+                    <h3>Sentence Building Practice</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Learning to express work situations naturally in English.</p>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <p style="margin-bottom: 0.5rem;"><strong>Original:</strong></p>
+                            <p style="color: var(--accent-pink); text-decoration: line-through; opacity: 0.7;">"I have to make some project. The project to work with my cowork, but this project up in the air."</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p style="margin-bottom: 0.5rem;"><strong>Corrected:</strong></p>
+                            <p style="color: var(--accent-green); font-weight: 500;">"I have to work on a new project with my coworker, but it is up in the air."</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p style="margin-bottom: 0.5rem;"><strong>Key fixes:</strong></p>
+                            <p>
+                                "make a project" &rarr; "<strong>work on</strong> a project"<br>
+                                "cowork" &rarr; "<strong>coworker</strong>" (person) vs. "cowork" (not standard)<br>
+                                "this project up in the air" &rarr; "it <strong>is</strong> up in the air" (needs verb "is")
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="callout" style="margin-top: 2rem;">
+                        <p>
+                            <span class="highlight">Why is it up in the air?</span><br>
+                            "The boss has <strong>not decided</strong> whether to do the project or not.<br>
+                            We are <strong>short-staffed</strong> and may not meet the client's deadline."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </div><!-- end week3 -->
+
     </div>
+
+    <script>
+        function showWeek(weekId) {
+            document.querySelectorAll('.week-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.week-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(weekId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: document.querySelector('.week-nav').offsetTop - 20, behavior: 'smooth' });
+        }
+    </script>
 
     <footer>
         <p>English Class Notes &mdash; March 2026</p>
