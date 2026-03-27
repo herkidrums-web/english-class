@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 - English Class Card News</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --accent: #38bdf8;
+            --accent-warm: #f59e0b;
+            --accent-green: #34d399;
+            --accent-pink: #f472b6;
+            --accent-purple: #a78bfa;
+            --accent-red: #f87171;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Slide Container */
+        .slideshow {
+            width: 100%;
+            max-width: 720px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .nav-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-indicator {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            width: 28px;
+            border-radius: 5px;
+        }
+
+        .page-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-left: 0.5rem;
+        }
+
+        /* ===== SLIDE STYLES ===== */
+
+        /* Slide 1: Cover */
+        .slide-cover {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .slide-cover .week-badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 0.4rem 1.2rem;
+            border-radius: 999px;
+            margin-bottom: 2rem;
+        }
+
+        .slide-cover h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.15;
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .slide-cover .tagline {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .slide-cover .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+        }
+
+        .slide-cover .topic-tag {
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* Slide 2-4: Idiom Cards */
+        .slide-idiom {
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 100%);
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        .slide-idiom .card-type {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-idiom h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .slide-idiom .definition {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            padding: 1.25rem 1.5rem;
+            background: rgba(245, 158, 11, 0.06);
+            border-left: 4px solid var(--accent-warm);
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .similar-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .similar-word {
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-warm);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* Example slides */
+        .slide-examples {
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 100%);
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        .slide-examples .card-type {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .slide-examples h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .example-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .example-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: rgba(56, 189, 248, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.08);
+            transition: all 0.3s;
+        }
+
+        .example-item:hover {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: rgba(56, 189, 248, 0.2);
+        }
+
+        .example-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg);
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .example-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .example-text strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Correction slide */
+        .slide-correction {
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 100%);
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        .slide-correction .card-type {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-correction h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .correction-box {
+            margin-bottom: 1.5rem;
+        }
+
+        .correction-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .correction-label.wrong { color: var(--accent-pink); }
+        .correction-label.right { color: var(--accent-green); }
+
+        .correction-text {
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .correction-text.wrong {
+            background: rgba(244, 114, 182, 0.06);
+            border: 1px solid rgba(244, 114, 182, 0.15);
+            color: var(--accent-pink);
+            text-decoration: line-through;
+            text-decoration-color: rgba(244, 114, 182, 0.4);
+        }
+
+        .correction-text.right {
+            background: rgba(52, 211, 153, 0.06);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+
+        .fix-list {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .fix-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .fix-arrow {
+            color: var(--accent-green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .fix-old {
+            color: var(--accent-pink);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .fix-new {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        /* Vocab slides */
+        .slide-vocab {
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 100%);
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        .slide-vocab .card-type {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-purple);
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-vocab h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1.25rem;
+        }
+
+        .slide-vocab .vocab-def {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(164, 139, 250, 0.06);
+            border-left: 4px solid var(--accent-purple);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .slide-vocab .example-sentence {
+            padding: 0.9rem 1.25rem;
+            background: rgba(164, 139, 250, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(164, 139, 250, 0.1);
+            font-style: italic;
+            color: var(--accent-purple);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.6rem;
+        }
+
+        .variant-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .variant-tag {
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .variant-tag.purple {
+            background: rgba(164, 139, 250, 0.12);
+            color: var(--accent-purple);
+        }
+        .variant-tag.blue {
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--accent);
+        }
+        .variant-tag.green {
+            background: rgba(52, 211, 153, 0.12);
+            color: var(--accent-green);
+        }
+        .variant-tag.pink {
+            background: rgba(244, 114, 182, 0.12);
+            color: var(--accent-pink);
+        }
+
+        /* Ending slide */
+        .slide-end {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .slide-end h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-end .recap {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .recap-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .recap-check {
+            color: var(--accent-green);
+            font-size: 1.1rem;
+        }
+
+        .slide-end .date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        /* Keyboard hint */
+        .keyboard-hint {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .slideshow { margin: 1rem; }
+            .slide { border-radius: 16px; }
+            .slide-cover h1 { font-size: 2.5rem; }
+            .slide-idiom h2 { font-size: 2.2rem; }
+            .slide-vocab h2 { font-size: 2rem; }
+            .slide-cover, .slide-idiom, .slide-examples,
+            .slide-correction, .slide-vocab, .slide-end { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slideshow">
+
+        <!-- Slide 1: Cover -->
+        <div class="slide slide-cover active" data-index="0">
+            <div class="week-badge">Week 3</div>
+            <h1>English Class Notes</h1>
+            <p class="tagline">Today's Idioms, Vocabulary &amp; Corrections</p>
+            <div class="topics">
+                <span class="topic-tag">Up in the Air</span>
+                <span class="topic-tag">Tech-Savvy</span>
+                <span class="topic-tag">Short-staffed</span>
+                <span class="topic-tag">Tell vs. Remind</span>
+                <span class="topic-tag">Sentence Corrections</span>
+            </div>
+        </div>
+
+        <!-- Slide 2: Up in the Air - Definition -->
+        <div class="slide slide-idiom" data-index="1">
+            <div class="card-type">Idiom of the Week</div>
+            <h2>Up in the Air</h2>
+            <div class="definition">
+                This expression is used if you say that a decision or a situation has <strong>not yet been completely settled, set, planned, or confirmed</strong>.
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; font-weight: 600;">Similar words:</p>
+            <div class="similar-words">
+                <span class="similar-word">unresolved</span>
+                <span class="similar-word">uncertain</span>
+                <span class="similar-word">undecided</span>
+                <span class="similar-word">unfinished</span>
+                <span class="similar-word">unsettled</span>
+                <span class="similar-word">pending</span>
+            </div>
+        </div>
+
+        <!-- Slide 3: Up in the Air - Examples -->
+        <div class="slide slide-examples" data-index="2">
+            <div class="card-type">Up in the Air &mdash; Examples</div>
+            <h2>When to use it</h2>
+            <div class="example-list">
+                <div class="example-item">
+                    <div class="example-num">1</div>
+                    <div class="example-text">The proposal to work with the new client <strong>is up in the air</strong> as there are various issues regarding budgeting.</div>
+                </div>
+                <div class="example-item">
+                    <div class="example-num">2</div>
+                    <div class="example-text">The meeting date with the client <strong>is up in the air</strong>.</div>
+                </div>
+                <div class="example-item">
+                    <div class="example-num">3</div>
+                    <div class="example-text">My promotion to be senior manager this year <strong>is up in the air</strong>.</div>
+                </div>
+                <div class="example-item">
+                    <div class="example-num">4</div>
+                    <div class="example-text">My weekend plans <strong>are up in the air</strong>.</div>
+                </div>
+                <div class="example-item">
+                    <div class="example-num">5</div>
+                    <div class="example-text">My vacation plans <strong>are up in the air</strong> because my manager did not approve my dates.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Sentence Correction -->
+        <div class="slide slide-correction" data-index="3">
+            <div class="card-type">Sentence Practice</div>
+            <h2>Using "Up in the Air" in context</h2>
+
+            <div class="correction-box">
+                <div class="correction-label wrong">Before</div>
+                <div class="correction-text wrong">
+                    "I have to make some project. The project to work with my cowork, but this project up in the air."
+                </div>
+            </div>
+
+            <div class="correction-box">
+                <div class="correction-label right">After</div>
+                <div class="correction-text right">
+                    "I have to work on a new project with my coworker, but it is up in the air."
+                </div>
+            </div>
+
+            <div class="fix-list">
+                <div class="fix-item">
+                    <span class="fix-old">make a project</span>
+                    <span class="fix-arrow">&rarr;</span>
+                    <span class="fix-new">work on a project</span>
+                </div>
+                <div class="fix-item">
+                    <span class="fix-old">cowork</span>
+                    <span class="fix-arrow">&rarr;</span>
+                    <span class="fix-new">coworker</span>
+                </div>
+                <div class="fix-item">
+                    <span class="fix-old">this project up in the air</span>
+                    <span class="fix-arrow">&rarr;</span>
+                    <span class="fix-new">it is up in the air</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Why is it up in the air? -->
+        <div class="slide slide-idiom" data-index="4">
+            <div class="card-type">Context</div>
+            <h2>Why is it<br>"up in the air"?</h2>
+            <div class="definition">
+                The boss has <strong>not decided</strong> whether to do the project or not.
+            </div>
+            <div class="definition" style="margin-top: 0.75rem;">
+                We are <strong>short-staffed</strong> and may not meet the client's deadline.
+            </div>
+            <div style="margin-top: 1.5rem;">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">Short-staffed:</p>
+                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;">When a team or company doesn't have enough employees to handle the workload.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Tech-Savvy -->
+        <div class="slide slide-vocab" data-index="5">
+            <div class="card-type">Vocabulary</div>
+            <h2>Tech-Savvy</h2>
+            <div class="vocab-def">
+                <strong style="color: var(--accent-purple);">Savvy</strong> refers to having practical knowledge, shrewdness, and good judgment in specific areas. It describes someone who is well-informed, perceptive, and quick-witted &mdash; often used to describe someone <strong style="color: var(--accent-purple);">"in the know"</strong>.
+            </div>
+            <div class="example-sentence">"I am a programmer, so I am very tech-savvy."</div>
+            <div class="example-sentence">"I am not a programmer, but I am tech-savvy."</div>
+            <div class="variant-tags">
+                <span class="variant-tag blue">tech-savvy</span>
+                <span class="variant-tag purple">media-savvy</span>
+                <span class="variant-tag green">business-savvy</span>
+            </div>
+        </div>
+
+        <!-- Slide 7: Fun & Enjoyment + Coder vs Developer -->
+        <div class="slide slide-vocab" data-index="6">
+            <div class="card-type">Vocabulary</div>
+            <h2>Fun &amp; Coding</h2>
+            <div class="vocab-def">
+                Different ways to say something is enjoyable:
+            </div>
+            <div class="variant-tags" style="margin-bottom: 1.5rem;">
+                <span class="variant-tag green">fun</span>
+                <span class="variant-tag blue">interesting</span>
+                <span class="variant-tag purple">entertaining</span>
+                <span class="variant-tag pink">enjoyable</span>
+            </div>
+            <div class="example-sentence">"It is very fun and interesting to do coding with Claude Code."</div>
+            <div style="margin-top: 1.5rem;">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; font-weight: 600;">What do you call someone who codes?</p>
+                <div class="variant-tags">
+                    <span class="variant-tag blue">Coder <span style="opacity:0.6; font-weight:400;">(casual)</span></span>
+                    <span class="variant-tag purple">Developer <span style="opacity:0.6; font-weight:400;">(professional)</span></span>
+                    <span class="variant-tag green">Programmer <span style="opacity:0.6; font-weight:400;">(general)</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Tell vs Remind -->
+        <div class="slide slide-vocab" data-index="7">
+            <div class="card-type">Useful Phrases</div>
+            <h2>Tell me vs.<br>Remind me</h2>
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
+                <div style="padding: 1.25rem; background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 12px;">
+                    <p style="font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">Tell me / Inform me</p>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Share <strong style="color: var(--text);">new</strong> information I don't know yet.</p>
+                    <p style="color: var(--accent); font-style: italic; margin-top: 0.75rem; font-size: 0.95rem;">"I want you to tell me what I need to do."</p>
+                </div>
+                <div style="padding: 1.25rem; background: rgba(164, 139, 250, 0.06); border: 1px solid rgba(164, 139, 250, 0.15); border-radius: 12px;">
+                    <p style="font-weight: 700; color: var(--accent-purple); margin-bottom: 0.5rem;">Remind me</p>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Help me <strong style="color: var(--text);">remember</strong> something I already know but forgot.</p>
+                    <p style="color: var(--accent-purple); font-style: italic; margin-top: 0.75rem; font-size: 0.95rem;">"I want you to remind me what I need to do."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Recap -->
+        <div class="slide slide-end" data-index="8">
+            <h2>Week 3 Recap</h2>
+            <div class="recap">
+                <div class="recap-item">
+                    <span class="recap-check">&#10003;</span>
+                    <span><strong>Up in the Air</strong> &mdash; undecided, not yet confirmed</span>
+                </div>
+                <div class="recap-item">
+                    <span class="recap-check">&#10003;</span>
+                    <span><strong>Short-staffed</strong> &mdash; not enough people</span>
+                </div>
+                <div class="recap-item">
+                    <span class="recap-check">&#10003;</span>
+                    <span><strong>Tech-savvy</strong> &mdash; knowledgeable about technology</span>
+                </div>
+                <div class="recap-item">
+                    <span class="recap-check">&#10003;</span>
+                    <span><strong>Tell me</strong> (new info) vs. <strong>Remind me</strong> (forgotten info)</span>
+                </div>
+                <div class="recap-item">
+                    <span class="recap-check">&#10003;</span>
+                    <span><strong>work on</strong> a project (not "make" a project)</span>
+                </div>
+            </div>
+            <p class="date">English Class &mdash; March 27, 2026</p>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>&larr;</button>
+        <div class="page-indicator" id="dots"></div>
+        <span class="page-text" id="pageText">1 / 9</span>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">&rarr;</button>
+    </div>
+    <div class="keyboard-hint">Use arrow keys or click to navigate</div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+
+        // Create dots
+        const dotsContainer = document.getElementById('dots');
+        for (let i = 0; i < total; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            dot.style.cursor = 'pointer';
+            dotsContainer.appendChild(dot);
+        }
+
+        function goToSlide(index) {
+            slides[current].classList.remove('active');
+            document.querySelectorAll('.dot')[current].classList.remove('active');
+            current = index;
+            slides[current].classList.add('active');
+            document.querySelectorAll('.dot')[current].classList.add('active');
+            document.getElementById('pageText').textContent = `${current + 1} / ${total}`;
+            document.getElementById('prevBtn').disabled = current === 0;
+            document.getElementById('nextBtn').disabled = current === total - 1;
+        }
+
+        function changeSlide(dir) {
+            const next = current + dir;
+            if (next >= 0 && next < total) goToSlide(next);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+        });
+
+        // Swipe support
+        let startX = 0;
+        document.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
+        document.addEventListener('touchend', (e) => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1);
+        });
+    </script>
+
+</body>
+</html>
